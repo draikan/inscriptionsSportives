@@ -5,6 +5,11 @@ import java.util.Collections;
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.TreeSet;
+import java.text.SimpleDateFormat; 
+
+import java.util.Date; 
+import java.util.Locale;  
+
 
 /**
  * Représente une compétition, c'est-à-dire un ensemble de candidats 
@@ -54,9 +59,14 @@ public class Competition implements Comparable<Competition>, Serializable
 	 * faux si les inscriptions sont closes.
 	 * @return
 	 */
-	
 	public boolean inscriptionsOuvertes()
 	{
+		Date d=new Date(); 
+		System.out.println(d); 
+	   
+	 	SimpleDateFormat f=new SimpleDateFormat( 
+			"'On est le' dd MMMM yyyy. 'Il est' H'h'm.", Locale.FRANCE); 
+		System.out.println(f.format(d)); 
 		// TODO retourner vrai si et seulement si la date système est antérieure à la date de clôture.
 		return true;
 	}

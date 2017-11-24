@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Locale;  
 
 
+
 /**
  * Représente une compétition, c'est-à-dire un ensemble de candidats 
  * inscrits à un événement, les inscriptions sont closes à la date dateCloture.
@@ -59,8 +60,12 @@ public class Competition implements Comparable<Competition>, Serializable
 	 * faux si les inscriptions sont closes.
 	 * @return
 	 */
+
 	public boolean inscriptionsOuvertes()
 	{
+		 
+			
+		
 		Date d=new Date(); 
 		System.out.println(d); 
 	   

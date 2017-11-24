@@ -4,11 +4,7 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.time.LocalDate;
 import java.util.Set;
-import java.util.TreeSet;
-import java.text.SimpleDateFormat; 
-
-import java.util.Date; 
-import java.util.Locale;  
+import java.util.TreeSet; 
 
 
 
@@ -26,6 +22,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	private Set<Candidat> candidats;
 	private LocalDate dateCloture;
 	private boolean enEquipe = false;
+	private LocalDate dateSystem = LocalDate.now();
 
 	Competition(Inscriptions inscriptions, String nom, LocalDate dateCloture, boolean enEquipe)
 	{
@@ -60,20 +57,13 @@ public class Competition implements Comparable<Competition>, Serializable
 	 * faux si les inscriptions sont closes.
 	 * @return
 	 */
-
+	
 	public boolean inscriptionsOuvertes()
 	{
-		 
-			
-		
-		Date d=new Date(); 
-		System.out.println(d); 
-	   
-	 	SimpleDateFormat f=new SimpleDateFormat( 
-			"'On est le' dd MMMM yyyy. 'Il est' H'h'm.", Locale.FRANCE); 
-		System.out.println(f.format(d)); 
-		// TODO retourner vrai si et seulement si la date système est antérieure à la date de clôture.
+		if(dateSystem.isBefore(dateCloture)) {
 		return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -104,8 +94,15 @@ public class Competition implements Comparable<Competition>, Serializable
 	
 	public void setDateCloture(LocalDate dateCloture)
 	{
+		if(dateCloture.isBefore(this.dateCloture) ) {
 		// TODO vérifier que l'on avance pas la date.
 		this.dateCloture = dateCloture;
+		}
+		else
+		{
+			
+		}
+		
 	}
 	
 	/**
@@ -129,6 +126,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	public boolean add(Personne personne)
 	{
 		// TODO vérifier que la date de clôture n'est pas passée
+		
 		if (enEquipe)
 			throw new RuntimeException();
 		personne.add(this);

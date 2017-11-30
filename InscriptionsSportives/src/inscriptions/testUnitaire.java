@@ -1,30 +1,28 @@
 package inscriptions;
 
+import static org.junit.Assert.assertEquals;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import org.junit.Test;
 
 public class testUnitaire {
 	public class TestsJUnit
 	{
-	
 		Inscriptions ins ; 
-		Personne test = new Personne(ins , "test", "test", "test" ); 
-		
-	 @Test
-	 public void testCompare()
-	 {
-	  assertEquals("", 2, test.compareTo());
-	 }
+		Personne test ;
+		Equipe testEq ; 
+		Competition comp ; 
 	 
-	 @Test
-	 public void testDelete()
+	@Test
+	 public void testDeleteEquipe()
 	 {
-	  assertEquals("", 2, test.delete());
-	 }
-	 
-	 @Test
-	 public void testEquipes()
-	 {
-	  assertEquals("", 2, test.getEquipes());
+		 Equipe test1 = ins.createEquipe("testEq");
+		 Personne test2 = ins.createPersonne("test","test","test");
+		 test1.add(test2) ; 
+		 test1.getPrenom() ;
+		 assertEquals("testEq",testEq);
 	 }
 	 
 	 @Test

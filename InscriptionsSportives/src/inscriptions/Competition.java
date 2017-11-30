@@ -100,7 +100,7 @@ public class Competition implements Comparable<Competition>, Serializable
 		}
 		else
 		{
-			
+			//mettre l'Exception
 		}
 		
 	}
@@ -126,6 +126,14 @@ public class Competition implements Comparable<Competition>, Serializable
 	public boolean add(Personne personne)
 	{
 		// TODO vérifier que la date de clôture n'est pas passée
+		if(dateCloture.isAfter(dateSystem) || dateCloture.isEqual(dateSystem)) {
+			
+			}
+			else
+			{
+				//return exception � faires
+			}
+		
 		
 		if (enEquipe)
 			throw new RuntimeException();
@@ -143,6 +151,13 @@ public class Competition implements Comparable<Competition>, Serializable
 
 	public boolean add(Equipe equipe)
 	{
+		if(dateCloture.isAfter(dateSystem) || dateCloture.isEqual(dateSystem)) {
+			
+		}
+		else
+		{
+			//return exception � faires
+		}
 		// TODO vérifier que la date de clôture n'est pas passée
 		if (!enEquipe)
 			throw new RuntimeException();

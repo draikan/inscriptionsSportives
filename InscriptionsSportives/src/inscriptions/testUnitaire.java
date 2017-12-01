@@ -21,10 +21,18 @@ public class testUnitaire {
 		 Equipe test1 = ins.createEquipe("testEq");
 		 Personne test2 = ins.createPersonne("test","test","test");
 		 test1.add(test2) ; 
-		 test1.getPrenom() ;
 		 assertEquals("testEq",testEq);
 	 }
 	 
+	@Test
+	 public void testDeletePersonne()
+	 {
+		 Equipe test1 = ins.createEquipe("testEq");
+		 Personne test2 = ins.createPersonne("test","test","test");
+		 test1.add(test2) ; 
+		 assertEquals("testEq",testEq);
+	 }
+	
 	 @Test
 	 public void testCompetitions()
 	 {

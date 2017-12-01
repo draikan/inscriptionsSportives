@@ -17,77 +17,45 @@ public class testUnitaire {
 		Equipe testEq ; 
 		Competition comp ; 
 	 
-	@Test
-	 public void testDeleteEquipe()
-	 {
-		 Equipe test1 = ins.createEquipe("testEq");
-		 Personne test2 = ins.createPersonne("test","test","test");
-		 test1.add(test2) ; 
-		 assertEquals("testEq",testEq);
-	 }
 	 
 	@Test
-	 public void testDeletePersonne()
+	 public void testDeleteCandidat()
 	 {
 		 Equipe test1 = ins.createEquipe("testEq");
 		 Personne test2 = ins.createPersonne("test","test","test");
-		 test1.add(test2) ; 
-		 assertEquals("testEq",testEq);
+		 test1.add(test2) ;
+		 test1.delete();
+		 assertEquals("",test1);
+	 }
+	
+	@Test
+	 public void testAddRemovegetMember()
+	 {
+		 Equipe test1 = ins.createEquipe("testEq");
+		 Personne test2 = ins.createPersonne("test","test","test");
+		 test1.add(test2) ;
+		 test1.remove(test2);
+		 test1.getMembres() ; 
+		 assertEquals("",test1.getMembres());
 	 }
 	
 	 @Test
-	 public void testCompetitions()
+	 public void testSetGetPrenom()
 	 {
-	  assertEquals("", 2, test.getCompetitions());
-	 }
-	 
-	 @Test
-	 public void testMail()
-	 {
-	  assertEquals("", 2, test.getMail());
-	 }
-	 
-	 @Test
-	 public void testNom()
-	 {
-	  assertEquals("", 2, test.getNom());
-	 }
-	 
-	 @Test
-	 public void testPrenom()
-	 {
-	  assertEquals("", 2, test.getPrenom());
-	 }
-	 
-	 @Test
-	 public void testsetMail()
-	 {
-	  assertEquals("", 2, test.setMail(mail));
-	 }
 
-	 @Test
-	 public void testsetNom()
-	 {
-	  assertEquals("", 2, test.setNom(nom));
 	 }
 	 
 	 @Test
-	 public void testsetPrenom()
+	 public void testSetGetNom()
 	 {
-	  assertEquals("", 2, test.setPrenom(prenom));
+
 	 }
 	 
 	 @Test
-	 public void testtoString()
+	 public void testGetEquipes()
 	 {
-	  assertEquals("", 2, test.toString());
 	 }
 	 
-	 @Test
-	 public void testCompare()
-	 {
-	  assertEquals("", 2, test.setNom(nom));
-	 }
 	}
 
 

@@ -42,18 +42,26 @@ public class testUnitaire {
 	 @Test
 	 public void testSetGetPrenom()
 	 {
-
+		 Personne test2 = ins.createPersonne("test","test","test");
+		 test2.setNom("toto");
+		 assertEquals("toto", test2.getNom());
 	 }
 	 
 	 @Test
 	 public void testSetGetNom()
 	 {
-
+		 Personne test2 = ins.createPersonne("test","test","test");
+		 test2.setPrenom("toto");
+		 assertEquals("toto", test2.getPrenom());
 	 }
 	 
 	 @Test
 	 public void testGetEquipes()
 	 {
+		 Equipe test1 = ins.createEquipe("testEq");
+		 Personne test2 = ins.createPersonne("test","test","test");
+		 test1.add(test2) ;
+		 assertEquals("test1",test2.getEquipes());
 	 }
 	 
 	}

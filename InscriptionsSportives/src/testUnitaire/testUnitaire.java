@@ -10,8 +10,6 @@ import inscriptions.Personne;
 
 public class testUnitaire {
 
-	public class TestsJUnit
-	{
 		Inscriptions ins ; 
 		Personne test ;
 		Equipe testEq ; 
@@ -65,6 +63,3 @@ public class testUnitaire {
 	 }
 	 
 	}
-
-
-}

@@ -94,7 +94,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	
 	public void setDateCloture(LocalDate dateCloture)
 	{
-		if(dateCloture.isBefore(this.dateCloture) ) {
+		if(dateCloture.isAfter(this.dateCloture) ) {
 		// TODO vérifier que l'on avance pas la date.
 		this.dateCloture = dateCloture;
 		}

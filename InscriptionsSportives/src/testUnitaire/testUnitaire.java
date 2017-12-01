@@ -20,10 +20,8 @@ public class testUnitaire {
 	 public void testDeleteCandidat()
 	 {
 		 Equipe test1 = ins.createEquipe("testEq");
-		 Personne test2 = ins.createPersonne("test","test","test");
-		 test1.add(test2) ;
 		 test1.delete();
-		 assertEquals("",test1);
+		 assertEquals("",test1.getNom());
 	 }
 	
 	@Test

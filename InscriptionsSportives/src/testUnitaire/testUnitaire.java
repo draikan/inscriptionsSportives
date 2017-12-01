@@ -86,7 +86,7 @@ public class testUnitaire {
 	 @Test
 	 public void testCompare()
 	 {
-	  assertEquals("", 2, test.setNom(nom););
+	  assertEquals("", 2, test.setNom(nom));
 	 }
 	}
 

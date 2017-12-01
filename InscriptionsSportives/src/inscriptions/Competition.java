@@ -60,10 +60,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	
 	public boolean inscriptionsOuvertes()
 	{
-		if(dateSystem.isBefore(dateCloture)) {
-		return true;
-		}
-		return false;
+		return(dateSystem.isBefore(dateCloture));
 	}
 	
 	/**
@@ -126,7 +123,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	public boolean add(Personne personne)
 	{
 		// TODO vérifier que la date de clôture n'est pas passée
-		if(dateCloture.isAfter(dateSystem) || dateCloture.isEqual(dateSystem)) {
+		if(inscriptionsOuvertes()) {
 			
 			}
 			else
@@ -151,7 +148,7 @@ public class Competition implements Comparable<Competition>, Serializable
 
 	public boolean add(Equipe equipe)
 	{
-		if(dateCloture.isAfter(dateSystem) || dateCloture.isEqual(dateSystem)) {
+		if(inscriptionsOuvertes()) {
 			
 		}
 		else

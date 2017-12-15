@@ -22,7 +22,6 @@ public class testPersonne {
 		assertTrue(!Equipe.getMembres().contains(Personne));
 		assertTrue(!inscriptions.getPersonnes().contains(Personne));
 		assertTrue(!inscriptions.getCandidats().contains(Personne));
-
 	}
 
 	@Test

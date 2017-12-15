@@ -12,9 +12,9 @@ public class ListCompete {
 	
 	private java.util.List<String> compete;
 	
-	ListCompete(java.util.List<String> people)
+	ListCompete(java.util.List<String> compete)
 	{
-		this.compete = people;
+		this.compete = compete;
 		List<String> list = getCompeteList();
 		list.start();
 	}

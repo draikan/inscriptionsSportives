@@ -6,6 +6,8 @@ import commandLineMenus.Option;
 import commandLineMenus.rendering.examples.util.InOut;
 
 public class FinalMenu {
+	
+	private java.util.List<String> compete;
 
 	static Menu getMainMenu()
 	{
@@ -45,5 +47,17 @@ public class FinalMenu {
 				System.out.println("Type de compete :" + d );
 			}
 		};
+	}
+	
+	static Action ModifiercompetionOption()
+	{
+		return new Action()
+		{
+			@Override
+			public void optionSelected() {
+				ListCompete(compete);
+					
+		}
+	};
 	}
 }

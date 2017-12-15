@@ -1,4 +1,4 @@
-package inscriptions;
+package menu;
 
 import java.util.ArrayList;
 

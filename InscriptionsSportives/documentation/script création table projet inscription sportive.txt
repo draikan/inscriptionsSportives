@@ -1,36 +1,36 @@
-create table candidat
+create table sign_sport_candidat
 (id_candidat int not null,
 nom varchar(255) not null,
 PRIMARY KEY id_candidat)
 
-create table equipe
+create table sign_sport_equipe
 (id_equipe int not null,
 PRIMARY KEY id_equipe,
-FOREIGN KEY(id_equipe) references candidat(id_candidat))
+FOREIGN KEY(id_equipe) references sign_sport_candidat(id_candidat))
 
-create table personne
+create table sign_sport_personne
 (id_personne int not null,
 prenom varchar(255) not null,
 email varchar(255) not null,
 PRIMARY KEY id_personne,
-FOREIGN KEY(id_personne) references personne(id_personne))
+FOREIGN KEY(id_personne) references sign_sport_personne(id_personne))
 
-create table appartenir
+create table sign_sport_appartenir
 (id_e int not null,
 id_p int not null,
 PRIMARY KEY (id_e, id_candidat),
-FOREIGN KEY(id_e) references equipe(id_equipe),
-FOREIGN KEY(id_p) references personne(id_personne))
+FOREIGN KEY(id_e) references sign_sport_equipe(id_equipe),
+FOREIGN KEY(id_p) references sign_sport_personne(id_personne))
 
-create table competition
+create table sign_sport_competition
 (id_competition int not null,
 nom_comp varchar(255),
 date_fin date,
 PRIMARY KEY id_competition)
 
-create table participer
+create table sign_sport_participer
 (id_participer int not null,
 id_compet int not null,
 PRIMARY KEY(id_participer, id_compet),
-FOREIGN KEY(id_participer) references candidat(id_candidat),
-FOREIGN KEY(id_compet) references competition(id_competition))
+FOREIGN KEY(id_participer) references sign_sport_candidat(id_candidat),
+FOREIGN KEY(id_compet) references sign_sport_competition(id_competition))

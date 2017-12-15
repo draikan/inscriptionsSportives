@@ -46,18 +46,4 @@ public class FinalMenu {
 			}
 		};
 	}
-	static Option ModifiercompetionAction()
-	{
-		Option ModNomcompete = new Option("Modifier nom Competition", "n", 
-				ModDatecompeteAction());
-		Option ModDatecompete = new Option("Modifier date Competition", "d", 
-				ModDatecompeteAction());
-		Option AjoutCandcompete = new Option("Ajouter candidat Competition", "a", 
-				AjoutCandcompeteAction());
-		Option Suppcompete = new Option("Supprimer Competition", "s", 
-				SuppcompeteAction());
-		Option SuppCandcompete = new Option("Supprimer candidat d'une Competition", "c", 
-				SuppCandAction());
-		return Creecompete;
-	}
 }

@@ -1,6 +1,8 @@
 package inscriptions;
 
+import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -13,9 +15,10 @@ import java.util.TreeSet;
 
 public class Equipe extends Candidat
 {
+	Inscriptions test;
 	private static final long serialVersionUID = 4147819927233466035L;
 	private SortedSet<Personne> membres = new TreeSet<>();
-	
+	private SortedSet<Personne> personnes = new TreeSet<>();
 	Equipe(Inscriptions inscriptions, String nom)
 	{
 		super(inscriptions, nom);
@@ -29,6 +32,7 @@ public class Equipe extends Candidat
 	{
 		return Collections.unmodifiableSortedSet(membres);
 	}
+	
 	
 	/**
 	 * Ajoute une personne dans l'équipe.
@@ -62,8 +66,11 @@ public class Equipe extends Candidat
 	public Set<Personne> getPersonnesAAjouter()
 	{
 		// TODO retourner les personnes que l'on peut ajouter dans cette équipe.
-		return null;
+		SortedSet<Personne> test2 = test.getPersonnes();
+		 test2.removeAll(getMembres());
+		return Collections.unmodifiableSortedSet(test2);
 	}
+	
 	
 	@Override
 	public void delete()

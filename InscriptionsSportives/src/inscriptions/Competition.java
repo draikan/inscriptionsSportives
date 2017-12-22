@@ -163,6 +163,17 @@ public class Competition implements Comparable<Competition>, Serializable
 		// TODO vérifier que la date de clôture n'est pas passée
 		
 	}
+	
+	/**
+	 * Retourne les personnes que l'on peut inscrire à cette competition.
+	 * @return les personnes que l'on peut inscrire à cette compétition.
+	 */
+	
+	public Set<Personne> getPersonnesAInscrire()
+	{
+		// TODO retourner les personnes que l'on peut inscrire à cette compétition.
+		return null;
+	}
 
 	/**
 	 * Désinscrit un candidat.
@@ -184,7 +195,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	{
 		for (Candidat candidat : candidats)
 			remove(candidat);
-		inscriptions.remove(this);
+		inscriptions.delete(this);
 	}
 	
 	@Override

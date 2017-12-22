@@ -1,6 +1,7 @@
 package inscriptions;
 
 import java.util.Collections;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -53,6 +54,17 @@ public class Equipe extends Candidat
 		return membres.remove(membre);
 	}
 
+	/**
+	 * Retourne les personnes que l'on peut ajouter dans cette équipe.
+	 * @return les personnes que l'on peut ajouter dans cette équipe.
+	 */
+	
+	public Set<Personne> getPersonnesAAjouter()
+	{
+		// TODO retourner les personnes que l'on peut ajouter dans cette équipe.
+		return null;
+	}
+	
 	@Override
 	public void delete()
 	{

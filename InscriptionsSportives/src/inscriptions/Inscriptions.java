@@ -128,12 +128,12 @@ public class Inscriptions implements Serializable
 		return equipe;
 	}
 	
-	void remove(Competition competition)
+	void delete(Competition competition)
 	{
 		competitions.remove(competition);
 	}
 	
-	void remove(Candidat candidat)
+	void delete(Candidat candidat)
 	{
 		candidats.remove(candidat);
 	}

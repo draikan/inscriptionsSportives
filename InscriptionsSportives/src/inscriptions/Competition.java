@@ -163,7 +163,7 @@ public class Competition implements Comparable<Competition>, Serializable
 		// TODO vérifier que la date de clôture n'est pas passée
 		
 	}
-	
+
 	/**
 	 * Retourne les personnes que l'on peut inscrire à cette competition.
 	 * @return les personnes que l'on peut inscrire à cette compétition.

@@ -17,6 +17,7 @@ private java.util.List<String> Candidat;
 		List<String> list = getCompeteList();
 		list.start();
 	}
+	
 	private List<String> getCompeteList()
 	{
 		List<String> liste = new List<>("Selectionner une competition",

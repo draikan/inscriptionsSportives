@@ -6,93 +6,161 @@ import commandLineMenus.ListData;
 import commandLineMenus.ListOption;
 import commandLineMenus.Menu;
 import commandLineMenus.Option;
+import inscriptions.Personne;
 
 public class Listpersonne {
 	
-private java.util.List<String> personne;
+private java.util.List<Personne> personne;
 	
-	Listpersonne(java.util.List<String> personne)
+	Listpersonne(java.util.List<Personne> personne)
 	{
 		this.personne = personne;
-		List<String> list = getCompeteList();
+		List<Personne> list = getPersonneList();
 		list.start();
 	}
-	private List<String> getCompeteList()
+	public List<Personne> getPersonneList()
 	{
-		List<String> liste = new List<>("Selectionner une personne",
-				getListCompetition(),
-				getOptionListeCompetition());
+		List<Personne> liste = new List<>("Selectionner une personne",
+				getListPersonne(),
+				getOptionListePersonne());
 		liste.setAutoBack(false);
 		liste.addQuit("q");
 		return liste;
 	}
 	
-	private ListData<String> getListCompetition()
+	private ListData<Personne> getListPersonne()
 	{
-		return new ListData<String>()
+		return new ListData<Personne>()
 		{
 			@Override
-			public java.util.List<String> getList()
+			public java.util.List<Personne> getList()
 			{
 				return personne;
 			}
 		};
 	}
 	
-	private ListOption<String> getOptionListeCompetition()
+	private ListOption<Personne> getOptionListePersonne()
 	{
-		return new ListOption<String>()
+		return new ListOption<Personne>()
 		{ 
-			public Option getOption(String someone)
+			public Option getOption(Personne someone)
 			{
 				return getSomeoneMenu(someone);
 			}
 		};
 	}
 	
-	private Option getSomeoneMenu(final String someone)
+	private Option getSomeoneMenu(Personne someone)
 	{
-		Menu someoneMenu = new Menu(someone);
+		Menu someoneMenu = new Menu("Option pour  "
+				+someone.getPrenom()+" "+someone.getNom(),null);
+		
+		someoneMenu.add(VoirInfo(someone));
+		someoneMenu.add(AjoutAEquipe(someone));
+		someoneMenu.add(AjoutACompete(someone));
+		someoneMenu.add(DesPersonneComp(someone));
+		someoneMenu.add(RetirerPersEqu(someone));
 		someoneMenu.add(SupprimerPersonne(someone));
-		someoneMenu.add(ModNom(someone));
-		someoneMenu.add(ModPrenom(someone));
-		//a completer
+		
+		
+		someoneMenu.setAutoBack(true);
+		someoneMenu.addQuit("q");
 		return someoneMenu;
 	}
 	
-	private Option ModNom(String someone)
+	private Option VoirInfo(Personne someone)
 	{
-		return new Option("ModNOM", "n", new Action()
+		return new Option("Voir", "a", new Action()
 		{
 			@Override
 			public void optionSelected()
 			{
-				System.out.println("Entrer nouveau nom: " + someone + ".");
+				System.out.println("Prénom : "+someone.getPrenom()+"/Nom : "+
+						someone.getNom()+"/ Mail : "+someone.getMail());
+				if(!someone.getEquipes().isEmpty())
+				{
+					System.out.println(someone.getEquipes().toString());
+				}
+				else
+				{
+					System.out.println(someone.getPrenom()+ " n'a pas d'équipe");
+				}
+				if(!someone.getCompetitions().isEmpty())
+				{
+					System.out.println("Participe à "+someone.getCompetitions().toString());
+				}
+				else
+				{
+					System.out.println(someone.getPrenom()+" ne participe à aucune compétition");
+				}
 			}
 		});
 	}
-	private Option ModPrenom(String someone)
+	private Option AjoutAEquipe(Personne someone)
 	{
-		return new Option("ModPrenom", "p", new Action()
+		return new Option("Integrer une equipe", "a", new Action()
 		{
 			@Override
 			public void optionSelected()
 			{
-				System.out.println("Entrer nouveau prenom: " + someone + ".");
+
 			}
 		});
-	}
+	}	
+	private Option AjoutACompete(Personne someone)
+	{
+		return new Option("Inscrire a une competition", "b", new Action()
+		{
+			@Override
+			public void optionSelected()
+			{
+			
+			}
+		});
+	}	
+	private Option DesPersonneComp(Personne someone)
+	{
+		return new Option("Desinscrire", "c", new Action()
+		{
+			@Override
+			public void optionSelected()
+			{
+	
+			}
+		});
+	}	
+	private Option RetirerPersEqu(Personne someone)
+	{
+		return new Option("Retirer de l'equipe", "d", new Action()
+		{
+			@Override
+			public void optionSelected()
+			{
+	
+			}
+		});
+	}	
+	private Option SupprimerPersonne(Personne someone)
+	{
+		return new Option("SuppPersonne", "e", new Action()
+		{
+			@Override
+			public void optionSelected()
+			{
+				
+			}
+		});
+	}	
 	
 	private Option SupprimerPersonne(String someone)
 	{
-		return new Option("Supp", "a", new Action()
+		return new Option("Supp", "f", new Action()
 		{
 			@Override
 			public void optionSelected()
 			{
 				personne.remove(someone);
-				System.out.println(someone + " has been deleted.");
-				System.out.println(personne);
 			}
 		});
 	}	

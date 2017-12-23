@@ -4,49 +4,75 @@ import commandLineMenus.Action;
 import commandLineMenus.Menu;
 import commandLineMenus.Option;
 import commandLineMenus.rendering.examples.util.InOut;
+import inscriptions.Inscriptions;
 
 public class FinalMenu {
 	
-	//public java.util.List<String> compete;
-	//public java.util.List<String> personne;
-	//public java.util.List<String> equipe;
+	private static Menu mainMenu;
+	private static  Menupersonne Mpers;
+	private static MenuCompete Mcomp;
+	private static MenuEquipe Meq;
+	private static Inscriptions inscriptions;
+
+	public FinalMenu(){
+		inscriptions = Inscriptions.getInscriptions();
+		mainMenu = getMainMenu();
+		Mpers = new Menupersonne() ;
+		Mcomp = new MenuCompete();
+		Meq = new MenuEquipe();
+	}
+
+	
+	public static void main(String[] args)
+	{
+		FinalMenu menu = new FinalMenu();
+		menu.start();
+	}
+	
+	public void start()
+	{
+		mainMenu.start();
+	}
+	
+	public Inscriptions getInscriptions()
+	{
+		return inscriptions;
+	}
+	
 
 	static Menu getMainMenu()
 	{
 		Menu mainMenu = new Menu("Menu Complet");
-		
-		// Adds a submenu or an option is then done 
-		// with a method call
-		mainMenu.add(CompeteMenu());
-		mainMenu.add(EquipeMenu());
-		mainMenu.add(PersonneMenu());
+		mainMenu.add(Mpers.getMenuPersonne(inscriptions));
+		//mainMenu.add(Meq.getMenuEquipe());
+		//mainMenu.add(Mcomp.getMenuComp());
 		mainMenu.addQuit("q");
 		return mainMenu;
 	}
 	
 	static Option PersonneMenu()
 	{
-		Option Personne = new Option("Inserer Personne", "c", 
+		Option Personne = new Option("Inserer Personne", "ip", 
 				insererPersonneAction());
-		Option Modifpersonne = new Option("Modifier Personne", "m", 
+		Option Modifpersonne = new Option("Modifier Personne", "mp", 
 				ModifierpersonneOption());
 		return Personne;
 	}
 	
 	static Option EquipeMenu()
 	{
-		Option Creeequipe = new Option("Creér Equipe", "c", 
+		Option Creeequipe = new Option("Creér Equipe", "ce", 
 				creerequipeAction());
-		Option Modifequipe = new Option("Modifier Equipe", "m", 
+		Option Modifequipe = new Option("Modifier Equipe", "me", 
 				ModifierequipeOption());
 		return Creeequipe;
 	}
 	
 	static Option CompeteMenu()
 	{
-		Option Creecompete = new Option("Creér Competition", "c", 
+		Option Creecompete = new Option("Creér Competition", "cc", 
 				creercompetionAction());
-		Option Modifcompete = new Option("Modifier Competition", "m", 
+		Option Modifcompete = new Option("Modifier Competition", "mc", 
 				ModifiercompetionOption());
 		return Creecompete;
 	}
@@ -103,9 +129,14 @@ public class FinalMenu {
 		{
 			@Override
 			public void optionSelected() {
-				listeequipe(equipe);
+				listeequipe();
 					
 		}
+
+			private void listeequipe() {
+				
+				
+			}
 	};
 	}
 	
@@ -116,9 +147,12 @@ public class FinalMenu {
 			@Override
 			public void optionSelected() {
 				//ListCompete(compete);
-				ListCompete newcompete = new ListCompete(compete);
+				 ListCompete();
 					
 		}
+			private void ListCompete() {
+				
+			}
 	};
 	}
 	
@@ -128,9 +162,13 @@ public class FinalMenu {
 		{
 			@Override
 			public void optionSelected() {
-				Listpersonne(personne);
+				Listpersonne();
 					
 		}
+			private void Listpersonne() {
+				
+				
+			}
 	};
 	}
 }

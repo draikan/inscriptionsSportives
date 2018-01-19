@@ -18,6 +18,7 @@ private java.util.List<Personne> personne;
 		List<Personne> list = getPersonneList();
 		list.start();
 	}
+	
 	public List<Personne> getPersonneList()
 	{
 		List<Personne> liste = new List<>("Selectionner une personne",

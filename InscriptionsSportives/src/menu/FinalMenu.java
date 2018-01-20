@@ -43,7 +43,9 @@ public class FinalMenu {
 	static Menu getMainMenu()
 	{
 		Menu mainMenu = new Menu("Menu Complet");
-		mainMenu.add(Menupersonne.getMenuPersonne(inscriptions));
+		inscriptions.createPersonne("pierre", "csczss", "lapoter");
+		inscriptions.createPersonne("pierre2", "csczss2", "lapoter2");
+		mainMenu.add(Mpers.getMenuPersonne(inscriptions));
 		//mainMenu.add(Meq.getMenuEquipe());
 		//mainMenu.add(Mcomp.getMenuComp());
 		mainMenu.addQuit("q");

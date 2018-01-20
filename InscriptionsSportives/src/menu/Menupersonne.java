@@ -39,7 +39,7 @@ public class Menupersonne {
 
 	static Option AjouterPersonneMenu()
 	{
-		Option Personne = new Option("Inserer Personne", "i", 
+		Option Personne = new Option("Inserer Personne", "a", 
 				insererPersonneAction());
 		return Personne;
 	}
@@ -47,7 +47,7 @@ public class Menupersonne {
 	{
 		return new Action()
 		{
-			public void optionSelected()
+			public void optionSelected()1
 			{
 			
 			}
@@ -56,7 +56,7 @@ public class Menupersonne {
 	
 	private static List<Personne> GererpersonneList() 
 	{
-			return new List<Personne>("Liste de personnes", "1", 
+			return new List<Personne>("Liste de personnes", "b", 
 					() -> new ArrayList<>(inscriptions.getPersonnes()),
 					(element) -> getSomeoneMenu(element)
 					);

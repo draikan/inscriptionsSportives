@@ -8,6 +8,7 @@ import commandLineMenus.ListData;
 import commandLineMenus.ListOption;
 import commandLineMenus.Menu;
 import commandLineMenus.Option;
+import commandLineMenus.rendering.examples.util.InOut;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
 
@@ -47,9 +48,12 @@ public class Menupersonne {
 	{
 		return new Action()
 		{
-			public void optionSelected()1
+			public void optionSelected()
 			{
-			
+				String nom = InOut.getString("Le nom : "),
+				 prenom =InOut.getString("Le prenom : "),
+				 email = InOut.getString("Le mail : ");
+				inscriptions.createPersonne(nom, prenom, email);
 			}
 		};
 	}
@@ -116,7 +120,7 @@ public class Menupersonne {
 			@Override
 			public void optionSelected()
 			{
-
+				
 			}
 		});
 	}	

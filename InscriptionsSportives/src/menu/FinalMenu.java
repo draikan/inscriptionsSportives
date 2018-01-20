@@ -1,5 +1,7 @@
 package menu;
 
+import java.util.ArrayList;
+
 import commandLineMenus.Action;
 import commandLineMenus.Menu;
 import commandLineMenus.Option;
@@ -43,11 +45,9 @@ public class FinalMenu {
 	static Menu getMainMenu()
 	{
 		Menu mainMenu = new Menu("Menu Complet");
-		inscriptions.createPersonne("pierre", "csczss", "lapoter");
-		inscriptions.createPersonne("pierre2", "csczss2", "lapoter2");
 		mainMenu.add(Mpers.getMenuPersonne(inscriptions));
-		//mainMenu.add(Meq.getMenuEquipe());
-		//mainMenu.add(Mcomp.getMenuComp());
+		mainMenu.add(Meq.getMenuEquipe());
+		mainMenu.add(Mcomp.getMenuComp());
 		mainMenu.addQuit("q");
 		return mainMenu;
 	}

@@ -4,7 +4,18 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.time.LocalDate;
 import java.util.Set;
-import java.util.TreeSet; 
+import java.util.TreeSet;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 
 
@@ -13,15 +24,35 @@ import java.util.TreeSet;
  * inscrits à un événement, les inscriptions sont closes à la date dateCloture.
  *
  */
-
+@Entity
+@Table(name = "competition")
 public class Competition implements Comparable<Competition>, Serializable
 {
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_co")
+    private int id_co;
+	
+	
 	private static final long serialVersionUID = -2882150118573759729L;
 	private Inscriptions inscriptions;
+	
+	@Column(name = "nom")
 	private String nom;
+	
+	@ManyToMany(cascade = { CascadeType.ALL })
+	@JoinTable(name = "Participer",
+	joinColumns = {@JoinColumn(name = "id_co")},
+	inverseJoinColumns = {@JoinColumn(name = "id_cand")})
 	private Set<Candidat> candidats;
+	
+	@Column(name="date_cloture")
 	private LocalDate dateCloture;
+	
+	@Column(name="en_equipe")
 	private boolean enEquipe = false;
+	
+	
 	private LocalDate dateSystem = LocalDate.now();
 
 	Competition(Inscriptions inscriptions, String nom, LocalDate dateCloture, boolean enEquipe)

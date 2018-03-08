@@ -7,18 +7,46 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
 /**
  * Représente une Equipe. C'est-à-dire un ensemble de personnes pouvant 
  * s'inscrire à une compétition.
  * 
  */
 
+@Entity
+@Table(name = "equipe")
 public class Equipe extends Candidat
 {
 	Inscriptions test;
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_eq")
+    private int id_eq;
+	
 	private static final long serialVersionUID = 4147819927233466035L;
+	
+	 @ManyToMany(cascade = { CascadeType.ALL })
+	 @JoinTable(
+	name = "Appartenir",
+	joinColumns = { @JoinColumn(name = "id_e") },
+	inverseJoinColumns = { @JoinColumn(name = "id_p") })
 	private SortedSet<Personne> membres = new TreeSet<>();
+	
 	private SortedSet<Personne> personnes = new TreeSet<>();
+	
+	
 	Equipe(Inscriptions inscriptions, String nom)
 	{
 		super(inscriptions, nom);

@@ -4,14 +4,37 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
 /**
  * Représente une personne physique pouvant s'inscrire à une compétition.
  */
-
+@Entity
+@Table(name = "personne")
 public class Personne extends Candidat
 {
 	private static final long serialVersionUID = 4434646724271327254L;
-	private String prenom, mail;
+	
+	@Column(name = "prenom")
+	private String prenom;
+	
+	@Column(name = "mail")
+	private String mail;
+	
+	 @ManyToMany(cascade = { CascadeType.ALL })
+	 @JoinTable(
+	name = "Appartenir",
+	joinColumns = { @JoinColumn(name = "id_p") },
+	inverseJoinColumns = { @JoinColumn(name = "id_e") })
 	private Set<Equipe> equipes;
 	
 	Personne(Inscriptions inscriptions, String nom, String prenom, String mail)

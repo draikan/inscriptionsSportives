@@ -5,17 +5,48 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
 /**
  * Candidat à un événement sportif, soit une personne physique, soit une équipe.
  *
  */
 
+@Entity
+@Table(name = "candidat")
+//@Inheritance(strategy = InheritanceType.JOINED)
+
 public abstract class Candidat implements Comparable<Candidat>, Serializable
 {
+	 @Id
+	 @GeneratedValue(strategy = GenerationType.AUTO)
+	 @Column(name = "id_cand")
+	 private int id_cand;
+
+	
 	private static final long serialVersionUID = -6035399822298694746L;
+	
 	private Inscriptions inscriptions;
-	private String nom;
+	
+	 @ManyToMany(cascade = { CascadeType.ALL })
+	 @JoinTable(
+	name = "Participer",
+	joinColumns = { @JoinColumn(name = "id_cand") },
+	inverseJoinColumns = { @JoinColumn(name = "id_co") })
+					 
 	private Set<Competition> competitions;
+	
+	@Column(name = "nom")
+	private String nom;
 	
 	Candidat(Inscriptions inscriptions, String nom)
 	{

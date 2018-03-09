@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -36,11 +37,7 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	
 	private Inscriptions inscriptions;
 	
-	 @ManyToMany(cascade = { CascadeType.ALL })
-	 @JoinTable(
-	name = "Participer",
-	joinColumns = { @JoinColumn(name = "id_cand") },
-	inverseJoinColumns = { @JoinColumn(name = "id_co") })
+	 @ManyToMany(mappedBy = "candidats")
 					 
 	private Set<Competition> competitions;
 	

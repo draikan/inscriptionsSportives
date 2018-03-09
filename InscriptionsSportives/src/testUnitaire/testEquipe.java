@@ -80,5 +80,17 @@ public class testEquipe {
 		Personne.delete();
 		assertTrue(!Equipe.getMembres().contains(Personne));
 	}
+	@Test
+	public void testPersonnesAAjouter() {
 
+		Inscriptions inscriptions = Inscriptions.getInscriptions();
+		Personne Personne = inscriptions.createPersonne("a", "b", "c");
+		Equipe Equipe = inscriptions.createEquipe("d");
+		Equipe.add(Personne);
+
+
+		assertTrue(Equipe.getMembres().contains(Personne));
+		Personne.delete();
+		assertTrue(!Equipe.getMembres().contains(Personne));
+	}
 }

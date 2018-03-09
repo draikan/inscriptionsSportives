@@ -31,11 +31,7 @@ public class Personne extends Candidat
 	@Column(name = "mail")
 	private String mail;
 	
-	 @ManyToMany(cascade = { CascadeType.ALL })
-	 @JoinTable(
-	name = "Appartenir",
-	joinColumns = { @JoinColumn(name = "id_p") },
-	inverseJoinColumns = { @JoinColumn(name = "id_e") })
+	@ManyToMany(mappedBy = "membres")
 	private Set<Equipe> equipes;
 	
 	Personne(Inscriptions inscriptions, String nom, String prenom, String mail)

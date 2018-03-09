@@ -45,8 +45,6 @@ public class Equipe extends Candidat
 	inverseJoinColumns = { @JoinColumn(name = "id_p") })
 	private SortedSet<Personne> membres = new TreeSet<>();
 	
-	private SortedSet<Personne> personnes = new TreeSet<>();
-	
 	
 	Equipe(Inscriptions inscriptions, String nom)
 	{

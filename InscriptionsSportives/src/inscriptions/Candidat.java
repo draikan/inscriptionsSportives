@@ -23,8 +23,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "candidat")
-//@Inheritance(strategy = InheritanceType.JOINED)
-
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Candidat implements Comparable<Candidat>, Serializable
 {
 	 @Id

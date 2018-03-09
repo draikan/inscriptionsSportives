@@ -7,6 +7,9 @@ import commandLineMenus.Menu;
 import commandLineMenus.Option;
 import commandLineMenus.rendering.examples.util.InOut;
 import inscriptions.Inscriptions;
+import javafx.application.Application;
+
+import hibernate.PremierExemple;
 
 public class FinalMenu {
 	
@@ -27,6 +30,8 @@ public class FinalMenu {
 	
 	public static void main(String[] args)
 	{
+	   Application.start();
+	    Application.importDataFromDatabase();
 		FinalMenu menu = new FinalMenu();
 		menu.start();
 	}

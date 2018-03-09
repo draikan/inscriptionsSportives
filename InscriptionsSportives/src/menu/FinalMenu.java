@@ -9,7 +9,7 @@ import commandLineMenus.rendering.examples.util.InOut;
 import inscriptions.Inscriptions;
 import javafx.application.Application;
 
-import hibernate.PremierExemple;
+
 
 public class FinalMenu {
 	
@@ -25,13 +25,12 @@ public class FinalMenu {
 		Mpers = new Menupersonne() ;
 		Mcomp = new MenuCompete();
 		Meq = new MenuEquipe();
+		new PremierExemple();
 	}
 
 	
 	public static void main(String[] args)
 	{
-	   Application.start();
-	    Application.importDataFromDatabase();
 		FinalMenu menu = new FinalMenu();
 		menu.start();
 	}

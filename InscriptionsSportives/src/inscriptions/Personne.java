@@ -25,13 +25,22 @@ public class Personne extends Candidat
 { 
 	private static final long serialVersionUID = 4434646724271327254L;
 	
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_p")
+    private int id_p;
+	
 	@Column(name = "prenom")
 	private String prenom;
 	
 	@Column(name = "mail")
 	private String mail;
 	
-	@ManyToMany(mappedBy = "membres")
+	 @ManyToMany(cascade = { CascadeType.ALL })
+	 @JoinTable(
+	name = "Appartenir",
+	joinColumns = { @JoinColumn(name = "id_p") },
+	inverseJoinColumns = { @JoinColumn(name = "id_e") })
 	private Set<Equipe> equipes;
 	
 	Personne(Inscriptions inscriptions, String nom, String prenom, String mail)

@@ -1,4 +1,4 @@
-package hibernate.PremierExemple;
+package hibernate.premierExemple;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ class Passerelle
 {
 	private static Session session = null;
 	private static SessionFactory sessionFactory = null;
-	private static final String CONF_FILE = "hibernate.PremierExemple/hibernate.cfg.xml";
+	private static final String CONF_FILE = "hibernate.premierExemple/hibernate.cfg.xml";
 	private static Transaction transaction = null;
 	
 	static void initHibernate()

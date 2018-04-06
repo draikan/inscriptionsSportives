@@ -16,7 +16,7 @@ class PremierExemple
 {
 	private static Session session = null;
 	private static SessionFactory sessionFactory = null;
-	private static final String CONF_FILE = "menu/hibernate.cfg.xml";
+	private static final String CONF_FILE = "Config/hibernate.cfg.xml";
 	private static Transaction transaction = null;
 	
 	static void initHibernate()

@@ -31,6 +31,7 @@ public class FinalMenu {
 	
 	public static void main(String[] args)
 	{
+		
 		FinalMenu menu = new FinalMenu();
 		menu.start();
 	}

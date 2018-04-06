@@ -67,7 +67,7 @@ public class FinalMenu {
 	
 	static Option EquipeMenu()
 	{
-		Option Creeequipe = new Option("Cre�r Equipe", "ce", 
+		Option Creeequipe = new Option("Creer Equipe", "ce", 
 				creerequipeAction());
 		Option Modifequipe = new Option("Modifier Equipe", "me", 
 				ModifierequipeOption());
@@ -76,7 +76,7 @@ public class FinalMenu {
 	
 	static Option CompeteMenu()
 	{
-		Option Creecompete = new Option("Cre�r Competition", "cc", 
+		Option Creecompete = new Option("Creer Competition", "cc", 
 				creercompetionAction());
 		Option Modifcompete = new Option("Modifier Competition", "mc", 
 				ModifiercompetionOption());

@@ -31,18 +31,9 @@ public class Equipe extends Candidat
 {
 	Inscriptions test;
 	
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_eq")
-    private int id_eq;
-	
 	private static final long serialVersionUID = 4147819927233466035L;
 	
-	 @ManyToMany(cascade = { CascadeType.ALL })
-	 @JoinTable(
-	name = "Appartenir",
-	joinColumns = { @JoinColumn(name = "id_e") },
-	inverseJoinColumns = { @JoinColumn(name = "id_p") })
+	 @ManyToMany(mappedBy="Appartenir")
 	private SortedSet<Personne> membres = new TreeSet<>();
 	
 	

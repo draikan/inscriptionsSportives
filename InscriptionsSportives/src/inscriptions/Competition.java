@@ -1,22 +1,16 @@
 package inscriptions;
 
+import Application.Inscriptions;
+
+import javax.persistence.*;
+
+import static Application.Inscriptions.getInscriptions;
+
 import java.io.Serializable;
 import java.util.Collections;
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.TreeSet;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 
 
 
@@ -26,26 +20,37 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "competition")
 public class Competition implements Comparable<Competition>, Serializable
 {
+	
+	public interface CompetitionCreator{ Competition create(Inscriptions application, String nom, LocalDate dateCloture, boolean enEquipe); }
+
+	static {
+		getInscriptions().setCompetitionCreator(Competition::new);
+	}
+	
+
+	@Transient
+	private static final long serialVersionUID = -2882150118573759729L;
+	
+	@Transient
+	private Inscriptions inscriptions;
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_co")
     private int id_co;
 	
-	
-	private static final long serialVersionUID = -2882150118573759729L;
-	private Inscriptions inscriptions;
-	
 	@Column(name = "nom")
 	private String nom;
 	
-	@ManyToMany(cascade = { CascadeType.ALL })
+	
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "Participer",
 	joinColumns = {@JoinColumn(name = "id_co")},
 	inverseJoinColumns = {@JoinColumn(name = "id_cand")})
 	private Set<Candidat> candidats;
+	
 	
 	@Column(name="date_cloture")
 	private LocalDate dateCloture;
@@ -54,7 +59,14 @@ public class Competition implements Comparable<Competition>, Serializable
 	private boolean enEquipe = false;
 	
 	
+	
+	
 	private LocalDate dateSystem = LocalDate.now();
+	
+	/**
+	 * Constructeur pour Hibernante
+	 */
+	Competition(){  }
 
 	Competition(Inscriptions inscriptions, String nom, LocalDate dateCloture, boolean enEquipe)
 	{
@@ -82,6 +94,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	public void setNom(String nom)
 	{
 		this.nom = nom ;
+		Inscriptions.saveEntity(this);
 	}
 	
 	/**
@@ -124,12 +137,12 @@ public class Competition implements Comparable<Competition>, Serializable
 	public void setDateCloture(LocalDate dateCloture)
 	{
 		if(dateCloture.isAfter(this.dateCloture) ) {
-		// TODO vérifier que l'on avance pas la date.
 		this.dateCloture = dateCloture;
+		Inscriptions.saveEntity(this);
 		}
 		else
 		{
-			//mettre l'Exception
+			throw new RuntimeException("Date de cl�ture invalide !");
 		}
 		
 	}
@@ -154,20 +167,15 @@ public class Competition implements Comparable<Competition>, Serializable
 	
 	public boolean add(Personne personne)
 	{
-		// TODO vérifier que la date de clôture n'est pas passée
-		if(inscriptionsOuvertes()) {
-			if (enEquipe)
-				throw new RuntimeException();
+		if( this.inscriptionsOuvertes() ) {
 			personne.add(this);
-			return candidats.add(personne);
-			}
-			else
-			{
-				return false;
-			}
-		
-		
-		
+			Boolean r = candidats.add(personne);
+
+			Inscriptions.saveEntity(this);
+			return r;
+		} else {
+			throw new RuntimeException("Les inscriptions sont closes !");
+		}	
 	}
 
 	/**
@@ -180,31 +188,15 @@ public class Competition implements Comparable<Competition>, Serializable
 
 	public boolean add(Equipe equipe)
 	{
-		if(inscriptionsOuvertes()) {
-			if (!enEquipe)
-				throw new RuntimeException();
+		if( this.inscriptionsOuvertes() ) {
 			equipe.add(this);
-			return candidats.add(equipe);
-			
-		}
+			Boolean r = candidats.add(equipe);
 
-		else
-		{
-			return false;
+			Inscriptions.saveEntity(this);
+			return r;
 		}
-		// TODO vérifier que la date de clôture n'est pas passée
+		return false;
 		
-	}
-
-	/**
-	 * Retourne les personnes que l'on peut inscrire à cette competition.
-	 * @return les personnes que l'on peut inscrire à cette compétition.
-	 */
-	
-	public Set<Personne> getPersonnesAInscrire()
-	{
-		// TODO retourner les personnes que l'on peut inscrire à cette compétition.
-		return null;
 	}
 
 	/**
@@ -212,11 +204,15 @@ public class Competition implements Comparable<Competition>, Serializable
 	 * @param candidat
 	 * @return
 	 */
-	
 	public boolean remove(Candidat candidat)
 	{
-		candidat.remove(this);
-		return candidats.remove(candidat);
+		Boolean r = candidats.remove(candidat);
+		Inscriptions.saveEntity(this);
+		return r;
+	}
+	
+	public void clear(){
+		this.candidats = new TreeSet<Candidat>();
 	}
 	
 	/**

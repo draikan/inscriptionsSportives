@@ -1,23 +1,13 @@
 package inscriptions;
 
-import java.io.IOException;
+import Application.Inscriptions;
+import javax.persistence.*;
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import static Application.Inscriptions.*;
 
 /**
  * Représente une Equipe. C'est-à-dire un ensemble de personnes pouvant 
@@ -26,15 +16,35 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "equipe")
 public class Equipe extends Candidat
 {
-	Inscriptions test;
 	
+	public interface EquipeCreator{ Equipe create(Inscriptions application, String nom); }
+
+	static {
+		getInscriptions().setEquipeCreator(Equipe::new);
+	}
+	
+	@Transient
 	private static final long serialVersionUID = 4147819927233466035L;
 	
-	 @ManyToMany(mappedBy="Appartenir")
-	private SortedSet<Personne> membres = new TreeSet<>();
+	
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(
+			name = "Appartenir",
+			joinColumns = { @JoinColumn(name = "id_e") },
+			inverseJoinColumns = { @JoinColumn(name = "id_p") }
+	)
+	@OrderBy("id ASC")
+	private SortedSet<Personne> membres = new TreeSet<Personne>();
+	
+	
+	/**
+	 * Constructeur pour Hibernante
+	 */
+	Equipe(){ }
+	
+	
 	
 	
 	Equipe(Inscriptions inscriptions, String nom)
@@ -60,8 +70,9 @@ public class Equipe extends Candidat
 
 	public boolean add(Personne membre)
 	{
-		membre.add(this);
-		return membres.add(membre);
+		Boolean r =  membres.remove(membre);
+		Inscriptions.saveEntity(this);
+		return r ;
 	}
 
 	/**
@@ -72,33 +83,28 @@ public class Equipe extends Candidat
 	
 	public boolean remove(Personne membre)
 	{
-		membre.remove(this);
-		return membres.remove(membre);
+		Boolean r =  membres.remove(membre);
+		Inscriptions.saveEntity(this);
+		return r;
+	}
+	
+	public void clear(){
+		this.membres = new TreeSet<Personne>();
 	}
 
-	/**
-	 * Retourne les personnes que l'on peut ajouter dans cette équipe.
-	 * @return les personnes que l'on peut ajouter dans cette équipe.
-	 */
-	
-	public Set<Personne> getPersonnesAAjouter()
-	{
-		// TODO retourner les personnes que l'on peut ajouter dans cette équipe.
-		SortedSet<Personne> test2 = test.getPersonnes();
-		 test2.removeAll(getMembres());
-		return Collections.unmodifiableSortedSet(test2);
-	}
-	
-	
+		
 	@Override
 	public void delete()
 	{
+		for (Personne p : membres){
+			p.remove(this);
+		}
 		super.delete();
 	}
 	
 	@Override
 	public String toString()
 	{
-		return "Equipe " + super.toString();
+		return "Equipe : " + this.getNom() + " (" + this.getMembres().size() + ")";
 	}
 }

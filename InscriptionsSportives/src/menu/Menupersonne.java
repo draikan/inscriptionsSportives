@@ -9,7 +9,7 @@ import commandLineMenus.ListOption;
 import commandLineMenus.Menu;
 import commandLineMenus.Option;
 import commandLineMenus.rendering.examples.util.InOut;
-import inscriptions.Inscriptions;
+import Application.Inscriptions;
 import inscriptions.Personne;
 
 public class Menupersonne {

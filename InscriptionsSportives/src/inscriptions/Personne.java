@@ -1,28 +1,31 @@
 package inscriptions;
 
+import Application.Inscriptions;
+
+import javax.persistence.*;
 import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import static Application.Inscriptions.getInscriptions;
+
 
 /**
  * Repr√©sente une personne physique pouvant s'inscrire √† une comp√©tition.
  */
+
+
 @Entity
-@Table(name = "personne")
 public class Personne extends Candidat
 { 
+	
+	public interface PersonneCreator{ Personne create(Inscriptions application, String nom, String prenom, String mail); }
+
+	static {
+		getInscriptions().setPersonneCreator(Personne::new);
+	}
+	
+	@Transient
 	private static final long serialVersionUID = 4434646724271327254L;
 	
 	
@@ -32,19 +35,25 @@ public class Personne extends Candidat
 	@Column(name = "mail")
 	private String mail;
 	
-	 @ManyToMany(cascade = { CascadeType.ALL })
-	 @JoinTable(
-	name = "Appartenir",
-	joinColumns = { @JoinColumn(name = "id_p") },
-	inverseJoinColumns = { @JoinColumn(name = "id_e") })
+	
+	@ManyToMany(mappedBy="membres")
+	@OrderBy("id ASC")
 	private Set<Equipe> equipes;
+	
+	
+
+	/**
+	 * Constructeur pour Hibernante
+	 */
+	Personne(){ }
+	
 	
 	Personne(Inscriptions inscriptions, String nom, String prenom, String mail)
 	{
 		super(inscriptions, nom);
 		this.prenom = prenom;
 		this.mail = mail;
-		equipes = new TreeSet<>();
+		this.equipes = new TreeSet<>();
 	}
 
 	/**
@@ -65,6 +74,7 @@ public class Personne extends Candidat
 	public void setPrenom(String prenom)
 	{
 		this.prenom = prenom;
+		Inscriptions.saveEntity(this);
 	}
 
 	/**
@@ -85,6 +95,7 @@ public class Personne extends Candidat
 	public void setMail(String mail)
 	{
 		this.mail = mail;
+		Inscriptions.saveEntity(this);
 	}
 
 	/**
@@ -97,14 +108,26 @@ public class Personne extends Candidat
 		return Collections.unmodifiableSet(equipes);
 	}
 	
+	/**
+	 * Ajoute une Èquipe ‡ une personne
+	 * @param equipe
+	 */
 	boolean add(Equipe equipe)
 	{
-		return equipes.add(equipe);
+		Boolean r =  equipes.add(equipe);
+		Inscriptions.saveEntity(this);
+		return r ;
 	}
 
+	/**
+	 * Supprimer une Èquipe ‡ une personne
+	 * @param equipe
+	 */
 	boolean remove(Equipe equipe)
 	{
-		return equipes.remove(equipe);
+		Boolean r =  equipes.remove(equipe);
+		Inscriptions.saveEntity(this);
+		return r ;
 	}
 	
 	@Override
@@ -118,6 +141,6 @@ public class Personne extends Candidat
 	@Override
 	public String toString()
 	{
-		return super.toString() + " membre de " + equipes.toString();
+		return "Personne : " + this.getNom() + " " + this.getPrenom() + " <" + this.getMail() + "> ";
 	}
 }

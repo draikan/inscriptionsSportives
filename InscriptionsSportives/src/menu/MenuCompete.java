@@ -1,6 +1,5 @@
 package menu;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import commandLineMenus.Action;
@@ -9,9 +8,8 @@ import commandLineMenus.Menu;
 import commandLineMenus.Option;
 import commandLineMenus.rendering.examples.util.InOut;
 import inscriptions.Competition;
-import inscriptions.Equipe;
-import inscriptions.Inscriptions;
-import inscriptions.Personne;
+import Application.Inscriptions;
+
 
 public class MenuCompete {
 	
@@ -26,12 +24,11 @@ public class MenuCompete {
 	
 	static Menu getMenuComp()
 	{
-		Menu menuPersonne = new Menu ("Gestion des competitions","3");
-		menuPersonne.add(CreercompMenu());
-		menuPersonne.add(GerercompList());
-		menuPersonne.addQuit("q");
-		menuPersonne.setAutoBack(false);
-		return menuPersonne;
+		Menu menuComp = new Menu ("Gestion des competitions","3");
+		menuComp.add(CreercompMenu());
+		menuComp.add(GerercompList());
+		menuComp.addQuit("q");
+		return menuComp;
 	}
 
 	static Option CreercompMenu()
@@ -52,16 +49,17 @@ public class MenuCompete {
 		};
 	}
 	
-	private static List<Competition> GerercompList() 
+	static List<Competition> GerercompList() 
 	{
 			return new List<Competition>("Liste des competes", "b", 
 					() -> new ArrayList<>(inscriptions.getCompetitions()),
 					(element) -> getcompMenu(element)
 					);
+			
 		
 	}
 	
-	private static Option getcompMenu(Competition someone)
+	static Option getcompMenu(Competition someone)
 	{
 		Menu someoneMenu = new Menu("Option pour  "
 				+someone.getNom(),null);

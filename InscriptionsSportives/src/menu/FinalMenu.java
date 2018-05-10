@@ -6,7 +6,7 @@ import commandLineMenus.Action;
 import commandLineMenus.Menu;
 import commandLineMenus.Option;
 import commandLineMenus.rendering.examples.util.InOut;
-import inscriptions.Inscriptions;
+import Application.Inscriptions;
 import javafx.application.Application;
 
 
@@ -25,13 +25,13 @@ public class FinalMenu {
 		Mpers = new Menupersonne() ;
 		Mcomp = new MenuCompete();
 		Meq = new MenuEquipe();
-		new PremierExemple();
 	}
 
 	
 	public static void main(String[] args)
 	{
-		
+		Inscriptions.start();
+		Inscriptions.importDataFromDatabase();
 		FinalMenu menu = new FinalMenu();
 		menu.start();
 	}

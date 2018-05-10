@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 import inscriptions.Equipe;
-import inscriptions.Inscriptions;
+import Application.Inscriptions;
 import inscriptions.Personne;
 
 public class testEquipe {

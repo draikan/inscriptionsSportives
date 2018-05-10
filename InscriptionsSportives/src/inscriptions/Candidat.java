@@ -1,21 +1,12 @@
 package inscriptions;
 
+import Application.Inscriptions;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 
 /**
  * Candidat Ã  un Ã©vÃ©nement sportif, soit une personne physique, soit une Ã©quipe.
@@ -23,26 +14,33 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "candidat")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Candidat implements Comparable<Candidat>, Serializable
 {
-	 @Id
-	 @GeneratedValue(strategy = GenerationType.AUTO)
-	 @Column(name = "id_cand")
-	 private int id_cand;
-
-	
+	@Transient
 	private static final long serialVersionUID = -6035399822298694746L;
-	
+
+	@Transient
 	private Inscriptions inscriptions;
 	
-	 @ManyToMany(mappedBy = "candidats")
-					 
-	private Set<Competition> competitions;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_cand")
+	private int id_cand;
+
 	@Column(name = "nom")
 	private String nom;
+	
+	@ManyToMany(mappedBy = "candidats")				 
+	private Set<Competition> competitions;
+	
+	
+	/**
+	 * Constructeur pour Hibernante
+	 */
+	Candidat(){
+		this.inscriptions = Inscriptions.getInscriptions();
+	}
 	
 	Candidat(Inscriptions inscriptions, String nom)
 	{
@@ -70,6 +68,7 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	public void setNom(String nom)
 	{
 		this.nom = nom;
+		Inscriptions.saveEntity(this);
 	}
 
 	/**
@@ -82,14 +81,31 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 		return Collections.unmodifiableSet(competitions);
 	}
 	
+	
+	/**
+	 * Ajoute une compétition à un candidat
+	 * @param competition
+	 * @return
+	 */
 	boolean add(Competition competition)
 	{
-		return competitions.add(competition);
+		Boolean r = competitions.add(competition);
+
+		Inscriptions.saveEntity(this);
+		return r;
 	}
 
+	/**
+	 * Supprimer une compétition à un candidat
+	 * @param competition
+	 * @return
+	 */
 	boolean remove(Competition competition)
 	{
-		return competitions.remove(competition);
+		Boolean r = competitions.remove(competition);
+
+		Inscriptions.saveEntity(this);
+		return r;
 	}
 
 	/**
@@ -112,6 +128,6 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	@Override
 	public String toString()
 	{
-		return "\n" + getNom() + " -> inscrit Ã  " + getCompetitions();
+		return "\n" + getNom() + " -> inscrit à " + getCompetitions();
 	}
 }
